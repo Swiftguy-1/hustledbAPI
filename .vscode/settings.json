@@ -1,0 +1,8 @@
+{
+  "editor.suggestOnTriggerCharacters": false,
+  "python-envs.defaultEnvManager": "ms-python.python:system",
+  "editor.quickSuggestions": {
+    "other": "off"
+  },
+  "editor.suggest.selectionMode": "never"
+}

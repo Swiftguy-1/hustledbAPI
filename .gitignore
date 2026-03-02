@@ -1,0 +1,9 @@
+.env
+venv/
+__pycache__/
+user_data.json
+apps.py
+ass.py
+feeder.js
+testform.html
+main.py
