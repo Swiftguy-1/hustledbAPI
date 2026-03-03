@@ -25,13 +25,8 @@ if SUPABASE_URL== None or SUPABASE_ANON_KEY== None:
 
 app.add_middleware(
     CORSMiddleware,
-<<<<<<< HEAD
-    allow_origins=["*"], # can be edited to suite purpose
-    allow_credentials=True,
-=======
     allow_origins=[ALLOWED_ORIGIN],
-    allow_credentials=False,
->>>>>>> a7dcb04 (Changed the CORS into an env variable)
+    allow_credentials=True,
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
 )
