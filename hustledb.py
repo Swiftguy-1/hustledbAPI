@@ -24,7 +24,7 @@ if SUPABASE_URL== None or SUPABASE_ANON_KEY== None:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://127.0.0.1:5500/"], # can be edited to suite purpose
     allow_credentials=True,
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
@@ -32,11 +32,7 @@ app.add_middleware(
 class waitlist(BaseModel):
     name:str
     email:str
-    # username:str
-    # password:str
     
-    
-  
 # waitlist endpoint or route
 @app.post("/waitlist")
 
@@ -44,22 +40,8 @@ def reg(user_details: waitlist):
   data_dict = user_details.model_dump()
   response=supabase.table("Api_waitlist_table").insert(data_dict).execute()
   
-  # if os.path.exists("user_data.json") and os.path.getsize("user_data.json") > 0: 
-  #   # Read previous data from existing Json file 
-  #   with open("user_data.json", "r") as file:
-  #     prev_data=json.load(file)
-  # else:
-  #   # creates an empty list for nonexistent or empty Json file 
-  #   prev_data=[]
-  
-  # # Append client data to the list  
-  # prev_data.append(data_dict)
-  
-  # # Wirte the appended data to the Json file 
-  # with open("user_data.json", "w") as file:
-  #   json.dump(prev_data, file, indent=4)
   # Terminal feedback
   print(f'{user_details.email} has joined the waitlist!') 
   print(response)
-#   # Browser feedback
+  # Browser feedback
   return {"feedback": 'You have been added to the waitlist!'}
