@@ -11,6 +11,7 @@ app=FastAPI()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
+ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGINS")
 
 print(f"connecting... to {SUPABASE_URL}")
 print(f"accessing supabase with anon key: {SUPABASE_ANON_KEY[20:30]}*****end...")
@@ -24,11 +25,17 @@ if SUPABASE_URL== None or SUPABASE_ANON_KEY== None:
 
 app.add_middleware(
     CORSMiddleware,
+<<<<<<< HEAD
     allow_origins=["*"], # can be edited to suite purpose
     allow_credentials=True,
+=======
+    allow_origins=[ALLOWED_ORIGIN],
+    allow_credentials=False,
+>>>>>>> a7dcb04 (Changed the CORS into an env variable)
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
 )
+
 class waitlist(BaseModel):
     name:str
     email:str
