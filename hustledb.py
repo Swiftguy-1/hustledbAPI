@@ -13,8 +13,8 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
 
 print(f"connecting... to {SUPABASE_URL}")
-print(f"Accessing supabase with anon key: {SUPABASE_ANON_KEY[20:30]}*****end...")
-print("Successfully connected to SUPABASE!")
+print(f"accessing supabase with anon key: {SUPABASE_ANON_KEY[20:30]}*****end...")
+print("successfully connected to SUPABASE!")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY) #supabase client instance
 
@@ -24,7 +24,7 @@ if SUPABASE_URL== None or SUPABASE_ANON_KEY== None:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500/"], # can be edited to suite purpose
+    allow_origins=["*"], # can be edited to suite purpose
     allow_credentials=True,
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
