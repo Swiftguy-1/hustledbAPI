@@ -1,9 +1,12 @@
+import os
+import mailer
 from fastapi import FastAPI
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
-import os
 from dotenv import load_dotenv
+from fastapi import BackgroundTasks
 from supabase import create_client, Client
+from fastapi.middleware.cors import CORSMiddleware
+
 
 load_dotenv(dotenv_path=".env")
 
@@ -35,15 +38,22 @@ class waitlist(BaseModel):
     name:str
     email:str
     
-# waitlist endpoint or route
+# Waitlist endpoint or route
 @app.post("/waitlist")
 
-def reg(user_details: waitlist):
+def reg(user_details: waitlist, background_tasks: BackgroundTasks):
   data_dict = user_details.model_dump()
   response=supabase.table("Api_waitlist_table").insert(data_dict).execute()
   
   # Terminal feedback
-  print(f'{user_details.email} has joined the waitlist!') 
+  print(f'{user_details.name} has joined the waitlist!')
+  
+  # Email message running in the background for limited process time. 
+  background_tasks.add_task(
+      mailer.send_welcome_message,
+      user_details.email,
+      user_details.name
+  )
   print(response)
   # Browser feedback
   return {"feedback": 'You have been added to the waitlist!'}
