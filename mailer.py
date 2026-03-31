@@ -46,7 +46,9 @@ def send_welcome_message(email: str, name: str):
 
                     <!-- CTA Button -->
                     <div style="text-align:center; margin:30px 0;">
-                        <a href="#"
+                        <a href="https://usehustleapp.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style="background:#2563eb;
                         color:white;
                         padding:12px 25px;
@@ -60,6 +62,22 @@ def send_welcome_message(email: str, name: str):
                     <p>
                     We're building something amazing, and we're glad you're part of the journey.
                     </p>
+                    
+                    <br>
+                    <p> <strong>Follow our socials:</strong></p>
+                         
+                    <div>
+                        <a href="https://www.tiktok.com/@usehustleapp" 
+                        target="_blank" 
+                        rel="noopener noreferrer "> 
+                        Tiktok
+                        </a>
+
+                         <a href="https://x.com/usehustleapp"
+                         target="_blank" rel="noopener noreferrer"> 
+                       Twitter/X 
+                        </a>  
+                    </div>
 
                     <p>
                     Best regards,<br>
@@ -75,9 +93,7 @@ def send_welcome_message(email: str, name: str):
                     © 2026 HustleApp. All rights reserved.
                 </td>
             </tr>
-
         </table>
-
     </body>
     </html>
     '''
