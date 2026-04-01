@@ -103,3 +103,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
             status_code = 500,
             detail = "Something went wrong on our end. This is not your fault."
         )
+
+@app.get("/health")
+def health_check():
+    return{"status" : "ok"}
