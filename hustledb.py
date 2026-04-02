@@ -62,7 +62,7 @@ class waitlist(BaseModel):
 def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTasks):
     try:
         strip_email = user_details.email.strip().lower() 
-        strip_name = user_details.name.strip()
+        strip_name = user_details.name.strip().tittle()
      
         response1=supabase.table("Api_waitlist_table").select("email").eq("email", strip_email).execute()
 
