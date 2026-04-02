@@ -16,7 +16,7 @@ from postgrest.exceptions import APIError
 limiter = Limiter(key_func = get_remote_address)
 
 logging.basicConfig(
-    filename="database_errors.log",
+    stream=sys.stderr,
     level = logging.ERROR,
     format = "%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -103,6 +103,11 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
             status_code = 500,
             detail = "Something went wrong on our end. This is not your fault."
         )
+        
+@pp.handle_uncaught_exceptions(Exception)
+async def all_exceptions(request: Request, exc: Exception):
+    logging.error(f"Unhandled error on {request.url}:{exc}", exc_info=True)
+    return JsonResponse(status_code=500, content={"detail": "Something went wrong on our end. This isn't your fault."})
 
 @app.get("/health")
 def health_check():
