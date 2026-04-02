@@ -104,7 +104,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
         traceback.print_exc()
         raise HTTPException (
             status_code = 500,
-            detail = "Something went wrong on our end. This isn't fault."
+            detail = "Something went wrong on our end. And not yours."
         )
 
 @app.exception_handler(Exception)
