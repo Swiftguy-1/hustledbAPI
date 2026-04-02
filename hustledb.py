@@ -1,4 +1,5 @@
 import os
+import sys
 import mailer
 import logging
 import traceback
@@ -12,6 +13,7 @@ from dotenv import load_dotenv
 from supabase import create_client, Client
 from fastapi.middleware.cors import CORSMiddleware
 from postgrest.exceptions import APIError
+from fastapi.responses import JSONResponse
 
 limiter = Limiter(key_func = get_remote_address)
 
@@ -103,7 +105,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
             status_code = 500,
             detail = "Something went wrong on our end. This is not your fault."
         )
-        
+
 @pp.handle_uncaught_exceptions(Exception)
 async def all_exceptions(request: Request, exc: Exception):
     logging.error(f"Unhandled error on {request.url}:{exc}", exc_info=True)
