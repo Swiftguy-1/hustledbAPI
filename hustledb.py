@@ -89,6 +89,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
         return {"Feedbck": "You successfully joined the waitlist!"}
         
     except HTTPException as http_err:
+        logging.error(f"CLIENT ERROR: {http_err}")
         raise http_err
 
     except APIError as db_err:
@@ -103,7 +104,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
         traceback.print_exc()
         raise HTTPException (
             status_code = 500,
-            detail = "Something went wrong on our end. This is not your fault."
+            detail = "Something went wrong on our end. This isn't fault."
         )
 
 @app.exception_handler(Exception)
