@@ -106,7 +106,7 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
             detail = "Something went wrong on our end. This is not your fault."
         )
 
-@app.handle_uncaught_exceptions(Exception)
+@app.exception_handler(Exception)
 async def all_exceptions(request: Request, exc: Exception):
     logging.error(f"Unhandled error on {request.url}:{exc}", exc_info=True)
     return JsonResponse(status_code=500, content={"detail": "Something went wrong on our end. This isn't your fault."})
