@@ -63,16 +63,16 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
     try:
         strip_email = user_details.email.strip().lower() 
         strip_name = user_details.name.strip().title()
-     
-        response1=supabase.table("Api_waitlist_table").select("email").eq("email", strip_email).execute()
+
+        response1=supabase.table("Api_waitlist_table").select("name").eq("name", strip_name).execute()
 
         if len(response1.data) > 0:
-            return {"Feedback":  "Email is already taken. Try another email"}
+            return {"Feedback": "Name already taken. Try another one."}
 
-        response2=supabase.table("Api_waitlist_table").select("name").eq("name", strip_name).execute()
+        response2=supabase.table("Api_waitlist_table").select("email").eq("email", strip_email).execute()
 
         if len(response2.data) > 0:
-            return {"Feedback": "Name already taken. Try another one."}
+            return {"Feedback":  "Email is already taken. Try another email"}
 
         data_json = user_details.model_dump()
         db_response = supabase.table("Api_waitlist_table").insert(data_json).execute()
