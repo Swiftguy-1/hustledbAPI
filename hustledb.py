@@ -67,12 +67,22 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
         response1=supabase.table("Api_waitlist_table").select("name").eq("name", strip_name).execute()
 
         if len(response1.data) > 0:
-            return {"Feedback": "Name already taken. Try another one."}
+            logging.error(f'DUPLICATE NAME ERROR: USER WITH NAME {strip_name}, TRIED A NAME DUPLICATE. ')
+
+            raise HTTPException(
+                status_code=409,
+                detail= "Name already exist. Try a different one."
+            )
 
         response2=supabase.table("Api_waitlist_table").select("email").eq("email", strip_email).execute()
 
         if len(response2.data) > 0:
-            return {"Feedback":  "Email is already taken. Try another email"}
+            logging.error(f'DUPLICATE EMAIL ERROR: USER WITH EMAIL {strip_email}, TRIED AN EMAIL DUPLICATE. ')
+
+            raise HTTPException(
+                status_code= 409, 
+                detail="Email already exist. Try a different one"
+            )
 
         data_json = user_details.model_dump()
         db_response = supabase.table("Api_waitlist_table").insert(data_json).execute()
@@ -89,7 +99,6 @@ def reg(request: Request, user_details: waitlist, background_tasks: BackgroundTa
         return {"Feedbck": "You successfully joined the waitlist!"}
         
     except HTTPException as http_err:
-        logging.error(f"CLIENT ERROR: {http_err}")
         raise http_err
 
     except APIError as db_err:
